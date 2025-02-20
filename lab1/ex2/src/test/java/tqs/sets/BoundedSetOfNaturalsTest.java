@@ -16,21 +16,27 @@ class BoundedSetOfNaturalsTest {
     private BoundedSetOfNaturals setA;
     private BoundedSetOfNaturals setB;
     private BoundedSetOfNaturals setC;
+    private BoundedSetOfNaturals setD;
+    private BoundedSetOfNaturals setE;
+    private BoundedSetOfNaturals setF;
 
 
     @BeforeEach
     public void setUp() {
         setA = new BoundedSetOfNaturals(1);
         setB = BoundedSetOfNaturals.fromArray(new int[]{10, 20, 30, 40, 50, 60});
-        setC = BoundedSetOfNaturals.fromArray(new int[]{50, 60});
+        setC = BoundedSetOfNaturals.fromArray(new int[]{40, 50});
+        setD = BoundedSetOfNaturals.fromArray(new int[]{15, 45});
+        setE = BoundedSetOfNaturals.fromArray(new int[]{25, 40});
+        setF = BoundedSetOfNaturals.fromArray(new int[]{40, 50});
     }
 
     @AfterEach
     public void tearDown() {
-        setA = setB = setC = null;
+        setA = setB = setC = setD = setC = null;
     }
 
-    @Disabled("TODO revise test logic")
+    @DisplayName("test adding elements to sets")
     @Test
     public void testAddElement() {
 
@@ -38,12 +44,12 @@ class BoundedSetOfNaturalsTest {
         assertTrue(setA.contains(99), "add: added element not found in set.");
         assertEquals(1, setA.size());
 
-        setB.add(11);
-        assertTrue(setB.contains(11), "add: added element not found in set.");
-        assertEquals(7, setB.size(), "add: elements count not as expected.");
+        assertThrows(IllegalArgumentException.class, () -> setB.add(11), "add: adding to full does not throw IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> setC.add(50), "add: adding duplicate does not throw IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> setA.add(-1), "add: adding negative number does not throw IllegalArgumentException");
     }
 
-    @Disabled("TODO revise to test the construction from invalid arrays")
+    @DisplayName("test the construction from invalid arrays")
     @Test
     public void testAddFromBadArray() {
         int[] elems = new int[]{10, -20, -30};
@@ -52,5 +58,33 @@ class BoundedSetOfNaturalsTest {
         assertThrows(IllegalArgumentException.class, () -> setA.add(elems));
     }
 
+    @DisplayName("tests if intersects is working")
+    @Test
+    public void testIntersects() {
+        assertTrue(setB.intersects(setC));
+        assertFalse(setB.intersects(setD));
+        assertFalse(setB.intersects(setE));
+    }
 
+    @DisplayName("tests if contains is working")
+    @Test
+    public void testContains() {
+        assertTrue(setB.contains(30));
+        assertFalse(setC.contains(20));
+    }
+
+    @DisplayName("tests if hashCode is working")
+    @Test
+    public void testHashCode() {
+        assertEquals(setC.hashCode(), setF.hashCode());
+        assertNotEquals(setB.hashCode(), setD.hashCode());
+    }
+
+    @DisplayName("tests if equals is working")
+    @Test
+    public void testEquals() {
+        assertTrue(setB.equals(setB));
+        assertFalse(setC.equals(null));
+        assertFalse(setD.equals("string"));
+    }
 }
