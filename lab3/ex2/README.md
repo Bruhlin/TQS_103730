@@ -1,6 +1,6 @@
-## Ex 3c) What could be the advantages and disadvantages of using a real database connection in testing activities?
+# Ex 3c) What could be the advantages and disadvantages of using a real database connection in testing activities?
 
-# Advantages:
+## Advantages:
 
 - More Realistic Testing;
 - Catches Schema and Query Issues;
@@ -8,7 +8,7 @@
 - Catches Data Persistence Bugs;
 - More Accurate Performance Testing.
 
-# Disadvantages:
+## Disadvantages:
 
 - Slower Test Execution;
 - Increased Complexity;
@@ -16,4 +16,4 @@
 - Harder to Isolate Tests;
 - Requires Database Availability.
 
-# If performance is not a concern, a real database is the best choice for integration testing. However, for fast feedback cycles, in-memory databases or mocking solutions are better.
+## If performance is not a concern, a real database is the best choice for integration testing. However, for fast feedback cycles, in-memory databases or mocking solutions are better.
