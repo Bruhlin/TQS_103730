@@ -23,19 +23,26 @@ E -> assertThat(response.getBody()).extracting(Employee::getName).containsExactl
 
 In B: 
 
-@Mock
-private EmployeeRepository employeeRepository;
+@BeforeEach
+    public void setUp() {
 
-@InjectMocks
-private EmployeeServiceImpl employeeService;
+        //these expectations provide an alternative to the use of the repository
+        Employee john = new Employee("john", "john@deti.com");
+        john.setId(111L);
 
-@Test
-void whenSearchValidName_thenEmployeeShouldBeFound() {
-    String name = "alex";
-    Employee found = employeeService.getEmployeeByName(name);
+        Employee bob = new Employee("bob", "bob@deti.com");
+        Employee alex = new Employee("alex", "alex@deti.com");
 
-    assertThat(found.getName()).isEqualTo(name);
-}
+        List<Employee> allEmployees = Arrays.asList(john, bob, alex);
+
+        Mockito.when(employeeRepository.findByName(john.getName())).thenReturn(john);
+        Mockito.when(employeeRepository.findByName(alex.getName())).thenReturn(alex);
+        Mockito.when(employeeRepository.findByName("wrong_name")).thenReturn(null);
+        Mockito.when(employeeRepository.findById(john.getId())).thenReturn(Optional.of(john));
+        Mockito.when(employeeRepository.findAll()).thenReturn(allEmployees);
+        Mockito.when(employeeRepository.findById(-99L)).thenReturn(Optional.empty());
+    }
+
 
 
 
