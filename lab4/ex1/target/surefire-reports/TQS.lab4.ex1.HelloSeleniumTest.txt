@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: TQS.lab4.ex1.HelloSeleniumTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.355 s -- in TQS.lab4.ex1.HelloSeleniumTest
