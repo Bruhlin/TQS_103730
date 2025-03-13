@@ -35,24 +35,18 @@ class BlazeDemoTest {
     void testBookingFlight() {
         driver.get("https://blazedemo.com/");
 
-        // Step 1: Search for flights
         homePage.selectDepartureCity("San Diego");
         homePage.selectDestinationCity("London");
         homePage.searchFlights();
 
-        // Step 2: Select a flight
         flightsPage.chooseFlight();
 
-        // Step 3: Fill out passenger details
         purchasePage.enterPassengerDetails("John Doe", "123 Main St", "Los Angeles", "CA", "90001");
 
-        // Step 4: Fill out payment details
         purchasePage.enterPaymentDetails("4111111111111111", "12", "2025", "John Doe");
 
-        // Step 5: Confirm purchase
         purchasePage.confirmPurchase();
 
-        // Step 6: Assert confirmation page title
         assertThat(driver.getTitle()).isEqualTo("BlazeDemo Confirmation");
     }
 }
