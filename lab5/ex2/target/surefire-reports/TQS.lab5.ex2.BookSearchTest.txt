@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: TQS.lab5.ex2.BookSearchTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.951 s -- in TQS.lab5.ex2.BookSearchTest

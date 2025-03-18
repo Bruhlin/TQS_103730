@@ -3,21 +3,17 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>TQS.lab5.ex2</groupId>
-  <artifactId>ex2</artifactId>
+  <groupId>TQS.lab5.ex3</groupId>
+  <artifactId>ex3</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>ex2</name>
+  <name>ex3</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
-    <junit-jupiter.version>5.12.0</junit-jupiter.version>
-    <junit-platform-suite.version>1.12.0</junit-platform-suite.version>
-    <cucumber.version>7.21.1</cucumber.version>
-    <hamcrest.version>2.2</hamcrest.version>
   </properties>
 
   <dependencyManagement>
@@ -42,30 +38,6 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-suite</artifactId>
-      <version>${junit-platform-suite.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-java</artifactId>
-      <version>${cucumber.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-junit-platform-engine</artifactId>
-      <version>${cucumber.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest</artifactId>
-      <version>${hamcrest.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

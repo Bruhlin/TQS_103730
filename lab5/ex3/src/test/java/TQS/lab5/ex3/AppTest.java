@@ -1,4 +1,4 @@
-package TQS.lab5.ex2;
+package TQS.lab5.ex3;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
