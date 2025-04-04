@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: TQS.lab8.ex1.euromillions.EuromillionsDrawTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.040 s -- in TQS.lab8.ex1.euromillions.EuromillionsDrawTest
