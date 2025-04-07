@@ -1,4 +1,4 @@
-package TQS.hw1;
+package TQS.hw1.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

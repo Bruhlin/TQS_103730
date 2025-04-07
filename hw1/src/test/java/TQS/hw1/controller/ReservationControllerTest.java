@@ -1,4 +1,4 @@
-package TQS.hw1;
+package TQS.hw1.controller;
 
 import java.time.LocalDate;
 import java.util.Map;
