@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import TQS.hw1.model.Meal;
+import TQS.hw1.dto.MealWithWeatherDTO;
 import TQS.hw1.service.MealService;
 
 @RestController
@@ -21,7 +21,7 @@ public class MealController {
     }
 
     @GetMapping
-    public List<Meal> getMeals(@RequestParam String restaurant) {
-        return mealService.getUpcomingMeals(restaurant);
+    public List<MealWithWeatherDTO> getMeals(@RequestParam String restaurant) {
+        return mealService.getMealsWithWeather(restaurant);
     }
 }
