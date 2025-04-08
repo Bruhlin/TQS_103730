@@ -35,7 +35,7 @@ class ReservationControllerTest {
     @Test
     void testCreateReservation() throws Exception {
         Map<String, String> body = Map.of(
-            "restaurant", "CantinaMoliceiro",
+            "restaurant", "Restaurant1",
             "date", LocalDate.now().plusDays(1).toString()
         );
 
@@ -43,23 +43,23 @@ class ReservationControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(body)))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.restaurant").value("CantinaMoliceiro"))
+            .andExpect(jsonPath("$.restaurant").value("Restaurant1"))
             .andExpect(jsonPath("$.date").value(LocalDate.now().plusDays(1).toString()));
     }
 
     @Test
     void testGetReservationByToken() throws Exception {
-    Reservation reservation = reservationService.createReservation("CantinaMoliceiro", LocalDate.now().plusDays(1));
+    Reservation reservation = reservationService.createReservation("Restaurant1", LocalDate.now().plusDays(1));
 
     mockMvc.perform(get("/api/reservations/" + reservation.getToken()))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.restaurant").value("CantinaMoliceiro"))
+            .andExpect(jsonPath("$.restaurant").value("Restaurant1"))
             .andExpect(jsonPath("$.token").value(reservation.getToken()));
     }
 
     @Test
     void testDeleteReservation() throws Exception {
-        Reservation reservation = reservationService.createReservation("CantinaMoliceiro", LocalDate.now().plusDays(1));
+        Reservation reservation = reservationService.createReservation("Restaurant1", LocalDate.now().plusDays(1));
     
         mockMvc.perform(delete("/api/reservations/" + reservation.getToken()))
                 .andExpect(status().isNoContent());
@@ -70,7 +70,7 @@ class ReservationControllerTest {
 
     @Test
     void testCheckInReservation() throws Exception {
-        Reservation reservation = reservationService.createReservation("CantinaMoliceiro", LocalDate.now().plusDays(1));
+        Reservation reservation = reservationService.createReservation("Restaurant1", LocalDate.now().plusDays(1));
     
         mockMvc.perform(post("/api/reservations/" + reservation.getToken() + "/checkin"))
                 .andExpect(status().isOk())

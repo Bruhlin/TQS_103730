@@ -1,0 +1,14 @@
+body {
+    font-family: sans-serif;
+    margin: 2rem;
+}
+  
+select, button {
+    margin: 1rem 0;
+}
+
+.meal {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}

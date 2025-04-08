@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Moliceiro Meal Booking</title>
+  <link rel="stylesheet" href ="index.css">
+</head>
+<body>
+  <h1>Campus Moliceiro Meals</h1>
+
+  <label for="restaurant">Choose the restaurant:</label>
+  <select id="restaurant">
+    <option value="CantinaCastro">Cantina Castro</option>
+    <option value="CantinaSantiago">Cantina Santiago</option>
+    <option value="CampiGrelhados">Campi Grelhados</option>
+    <option value="CampiTresDe">Campi TrêsDê</option>
+    <option value="CantinaESTGA">Cantina ESTGA</option>
+    <option value="RestauranteUniversitario">Restaurante Universitário</option>
+  </select>
+  <button onclick="loadMeals()">Check Meals</button>
+
+  <div id="meals"></div>
+
+  <script src="index.js"></script>
+</body>
+</html>

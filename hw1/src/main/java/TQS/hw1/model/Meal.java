@@ -17,6 +17,14 @@ public class Meal {
     private LocalDate date;
     private String description;
 
+    public Meal() {}
+
+    public Meal(String restaurant, LocalDate date, String description) {
+        this.restaurant = restaurant;
+        this.date = date;
+        this.description = description;
+    }
+
     public Long getId() {
         return id;
     }
