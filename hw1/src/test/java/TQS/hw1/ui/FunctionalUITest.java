@@ -17,15 +17,14 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Duration;
-import java.util.List;
 
-public class FunctionalUITest {
+class FunctionalUITest {
 
     private static WebDriver driver;
     private static String token;
 
     @BeforeAll
-    public static void setup() {
+    static void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -33,7 +32,7 @@ public class FunctionalUITest {
 
     @Test
     @Order(1)
-    public void testBookMealAndGetToken() {
+    void testBookMealAndGetToken() {
         driver.get("http://localhost:8080/index/index.html");
 
         WebElement dropdown = driver.findElement(By.id("restaurant"));
@@ -61,7 +60,7 @@ public class FunctionalUITest {
 
     @Test
     @Order(2)
-    public void testCheckinPageWithToken() {
+    void testCheckinPageWithToken() {
         driver.get("http://localhost:8080/checkin/checkin.html");
 
         WebElement input = driver.findElement(By.id("token"));
@@ -86,7 +85,7 @@ public class FunctionalUITest {
     }
 
     @AfterAll
-    public static void tearDown() {
+    static void tearDown() {
         driver.quit();
     }
 }

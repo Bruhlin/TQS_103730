@@ -5,7 +5,7 @@ import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PerformanceTest {
+class PerformanceTest {
 
     private final RestTemplate restTemplate = new RestTemplate();
 

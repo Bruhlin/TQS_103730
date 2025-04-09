@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,10 @@ import TQS.hw1.service.ReservationService;
 public class ReservationController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
+
+    private static final String SANITIZE_REGEX = "[\n\r\t]";
+
+    private static final String DEFAULT_VALUE = "unknown";
     
     private final ReservationService reservationService;
 
@@ -35,7 +40,9 @@ public class ReservationController {
         String restaurant = body.get("restaurant");
         LocalDate date = LocalDate.parse(body.get("date"));
         
-        logger.info("Creating reservation at {} in {}", restaurant, date);
+        String sanitizedRestaurant = restaurant != null ? restaurant.replaceAll(SANITIZE_REGEX, "_") : DEFAULT_VALUE;
+
+        logger.info("Creating reservation at {} in {}", sanitizedRestaurant, date);
         Reservation reservation = reservationService.createReservation(restaurant, date);
         
         return ResponseEntity.ok(reservation);
@@ -43,11 +50,16 @@ public class ReservationController {
 
     @GetMapping("/{token}")
     public ResponseEntity<Map<String, Object>> get(@PathVariable String token) {
-        logger.info("Getting reservation with token {}", token);
+
+        String safeToken = token != null ? token.replaceAll(SANITIZE_REGEX, "_") : DEFAULT_VALUE;
+
+        logger.info("Getting reservation with token {}", safeToken);
         Reservation reservation = reservationService.getReservationByToken(token);
 
         if (reservation == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("error", "Reservation not found")
+            );
         }
 
         Meal meal = reservationService.getMealByReservation(reservation);
@@ -67,13 +79,19 @@ public class ReservationController {
 
     @DeleteMapping("/{token}")
     public ResponseEntity<Void> delete(@PathVariable String token) {
-        logger.info("Deleting reservation with token {}", token);
+
+        String safeToken = token != null ? token.replaceAll(SANITIZE_REGEX, "_") : DEFAULT_VALUE;
+
+        logger.info("Deleting reservation with token {}", safeToken);
         return reservationService.deleteReservation(token) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/{token}/checkin")
     public ResponseEntity<String> checkin(@PathVariable String token) {
-        logger.info("Checking in reservation with token {}", token);
+
+        String safeToken = token != null ? token.replaceAll(SANITIZE_REGEX, "_") : DEFAULT_VALUE;
+
+        logger.info("Checking in reservation with token {}", safeToken);
         boolean success = reservationService.checkInReservation(token);
         return success ? ResponseEntity.ok("Checked in successfully") : ResponseEntity.badRequest().body("Reservation already used or not found");
     }

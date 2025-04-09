@@ -3,7 +3,6 @@ package TQS.hw1.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
@@ -18,6 +17,9 @@ import TQS.hw1.repository.MealRepository;
 public class MealSeeder implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(MealSeeder.class);
+
+    @SuppressWarnings("java:S2245") // SonarCloud: Random not secure (not needed for seed data)
+    private static final Random random = new Random();
 
     private final MealRepository mealRepository;
 
@@ -52,9 +54,8 @@ public class MealSeeder implements CommandLineRunner {
 
         List<LocalDate> futureDates = IntStream.rangeClosed(1, 5).mapToObj(i ->
             LocalDate.now().plusDays(i))
-            .collect(Collectors.toList());
+            .toList();
 
-        Random random = new Random();
 
         for (String restaurant: restaurants) {
             for (LocalDate date : futureDates) {

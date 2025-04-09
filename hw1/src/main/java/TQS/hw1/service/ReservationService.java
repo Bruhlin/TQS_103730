@@ -16,6 +16,10 @@ import TQS.hw1.repository.ReservationRepository;
 public class ReservationService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
+
+    private static final String SANITIZE_REGEX = "[\n\r\t]";
+
+    private static final String DEFAULT_VALUE = "unknown";
     
     private final MealRepository mealRepository;
     private final ReservationRepository reservationRepository;
@@ -33,37 +37,42 @@ public class ReservationService {
         reservation.setToken(UUID.randomUUID().toString().substring(0, 8));
 
         Reservation saved = reservationRepository.save(reservation);
-        logger.info("Reservation created: {} on {}", saved.getToken(), restaurant);
+
+        String sanitizedRestaurant = restaurant != null ? restaurant.replaceAll(SANITIZE_REGEX, "_") : DEFAULT_VALUE;
+        logger.info("Reservation created: {} on {}", saved.getToken(), sanitizedRestaurant);
         return saved;
     }
 
     public Reservation getReservationByToken(String token) {
-        logger.info("Fetching reservation with token: {}", token);
+        String safeToken = token != null ? token.replaceAll(SANITIZE_REGEX, "_") : DEFAULT_VALUE;
+        logger.info("Fetching reservation with token: {}", safeToken);
         return reservationRepository.findByToken(token).orElse(null);
     }
 
     public boolean deleteReservation(String token) {
-        logger.info("Deleting reservation with token: {}", token);
+        String safeToken = token != null ? token.replaceAll(SANITIZE_REGEX, "_") : DEFAULT_VALUE;
+        logger.info("Deleting reservation with token: {}", safeToken);
         return reservationRepository.findByToken(token).map(reservation -> {
             reservationRepository.delete(reservation);
-            logger.info("Reservation deleted: {}", token);
+            logger.info("Reservation deleted: {}", safeToken);
             return true;
         }).orElseGet(() -> {
-            logger.warn("Reservation not found: {}", token);
+            logger.warn("Reservation not found: {}", safeToken);
             return false;
         });
     }
 
     public boolean checkInReservation(String token) {
-        logger.info("Checking in reservation with token: {}", token);
+        String safeToken = token != null ? token.replaceAll(SANITIZE_REGEX, "_") : DEFAULT_VALUE;
+        logger.info("Checking in reservation with token: {}", safeToken);
         return reservationRepository.findByToken(token).map(reservation -> {
             if (!reservation.isUsed()) {
                 reservation.setUsed(true);
                 reservationRepository.save(reservation);
-                logger.info("Checked in reservation: {}", token);
+                logger.info("Checked in reservation: {}", safeToken);
                 return true;
             } else {
-                logger.warn("Reservation already used: {}", token);
+                logger.warn("Reservation already used: {}", safeToken);
                 return false;
             }
         }).orElse(false);

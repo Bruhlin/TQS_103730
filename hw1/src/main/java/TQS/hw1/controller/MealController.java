@@ -26,7 +26,8 @@ public class MealController {
 
     @GetMapping
     public List<MealWithWeatherDTO> getMeals(@RequestParam String restaurant) {
-        logger.info("Meal request to restaurant: {}", restaurant);
+        String safeRestaurant = restaurant != null ? restaurant.replaceAll("[\n\r\t]", " ") : "unknown";
+        logger.info("Meal request to restaurant: {}", safeRestaurant);
         return mealService.getMealsWithWeather(restaurant);
     }
 }

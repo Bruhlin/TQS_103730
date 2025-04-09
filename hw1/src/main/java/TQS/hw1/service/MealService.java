@@ -26,7 +26,10 @@ public class MealService {
     }
 
     public List <MealWithWeatherDTO> getMealsWithWeather(String restaurant) {
-        logger.info("Fetching meals for restaurant: {}", restaurant);
+
+        String sanitizedRestaurant = restaurant != null ? restaurant.replaceAll("[\n\r\t]", "_") : "unknown";
+
+        logger.info("Fetching meals for restaurant: {}", sanitizedRestaurant);
         List<Meal> meals = mealRepository.findByRestaurantAndDateAfter(restaurant, LocalDate.now());
         Map<LocalDate, String> forecast = weatherService.getWeatherForecastByDate();
 

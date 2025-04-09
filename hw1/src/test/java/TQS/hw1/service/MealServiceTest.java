@@ -5,7 +5,6 @@ import TQS.hw1.model.Meal;
 import TQS.hw1.repository.MealRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class MealServiceTest {
+class MealServiceTest {
 
     private MealRepository mealRepository;
     private WeatherService weatherService;

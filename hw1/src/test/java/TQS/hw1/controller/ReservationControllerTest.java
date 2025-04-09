@@ -80,4 +80,11 @@ class ReservationControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Reservation already used or not found"));
     }
+
+    @Test
+    void testGetReservationNotFound() throws Exception {
+        mockMvc.perform(get("/api/reservations/INVALIDTOKEN"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").value("Reservation not found"));
+    }
 }
