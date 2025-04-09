@@ -84,6 +84,22 @@ class FunctionalUITest {
         assertTrue(result.getText().contains("Used? Yes"));
     }
 
+    @Test
+    @Order(3)
+    void testCancelReservation() {
+        driver.get("http://localhost:8080/index/index.html");
+
+        WebElement tokenInput = driver.findElement(By.id("cancelToken"));
+        tokenInput.sendKeys(token);
+
+        WebElement cancelButton = driver.findElement(By.xpath("//button[contains(text(), 'Cancel Reservation')]"));
+        cancelButton.click();
+
+        WebElement cancelResult = driver.findElement(By.id("cancelResult"));
+
+        assertTrue(cancelResult.getText().contains("Reservation cancelled successfully"));
+    }
+
     @AfterAll
     static void tearDown() {
         driver.quit();

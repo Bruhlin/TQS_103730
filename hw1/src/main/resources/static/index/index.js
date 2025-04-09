@@ -25,11 +25,29 @@ async function loadMeals() {
   }
 
 async function bookMeal(restaurant, date) {
-    const response = await fetch("/api/reservations", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ restaurant, date })
-    });
-    const data = await response.json();
-    alert(`Reservation successful. Token : ${data.token}`);
+  const response = await fetch("/api/reservations", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ restaurant, date })
+  });
+  const data = await response.json();
+  alert(`Reservation successful. Token : ${data.token}`);
+}
+
+async function cancelReservation(event) {
+  event.preventDefault();
+  const token = document.getElementById("cancelToken").value;
+  const resultDiv = document.getElementById("cancelResult");
+  
+  const response = await fetch(`/api/reservations/${token}`, {
+    method: "DELETE"
+  });
+  
+    if (response.status === 204) {
+      resultDiv.innerHTML = `<p style="color: green;">Reservation cancelled successfully.</p>`;
+    } else if (response.status === 404) {
+      resultDiv.innerHTML = `<p style="color: red;">Reservation not found.</p>`;
+    } else {
+      resultDiv.innerHTML = `<p style="color: orange;">Something went wrong. Please try again.</p>`;
+    }
   }

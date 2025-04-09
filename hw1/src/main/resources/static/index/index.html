@@ -21,6 +21,14 @@
 
   <div id="meals"></div>
 
+  <h2>Cancel your reservation</h2>
+  <form id="cancelForm" onsubmit="cancelReservation(event)">
+    <label for="cancelToken">Reservation token:</label>
+    <input type="text" id="cancelToken" required />
+    <button type="submit">Cancel Reservation</button>
+  </form>
+  <div id="cancelResult"></div>
+
   <script src="index.js"></script>
 </body>
 </html>
